@@ -24,6 +24,13 @@
     <link rel="stylesheet" href="css/aos.css">
 
     <link rel="stylesheet" href="css/style.css">
+
+    <?php
+
+    require_once "conf.php";
+
+
+    ?>
     
   </head>
   <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
@@ -317,6 +324,62 @@
       </div>
 
 
+      <?php
+      $kask=$yhendus->prepare("SELECT teacher FROM consultation");
+      $kask->bind_result($teacherid);
+      $kask->execute();
+      while($kask->fetch()){
+      }
+      $kask2=$yhendus->prepare("SELECT name FROM users WHERE id=$teacherid");
+      $kask2->bind_result($teachername);
+      $kask2->execute();
+      while($kask2->fetch()){
+        
+      }
+
+      $kask3=$yhendus->prepare("SELECT consID, consname, consdesc FROM consultation");
+      $kask3->bind_result($id, $name, $description, $countstudents);
+      $kask3->execute();
+      while($kask3->fetch()) {
+          echo '
+          <div class="course bg-white h-100 align-self-stretch mr-5 mt-5">
+            <figure class="m-0">
+              <a href="course-single.php"><img src="images/img_3.jpg" alt="Image" class="img-fluid"></a>
+            </figure>
+            <div class="course-inner-text py-4 px-4">
+              <div class="meta"><span class="icon-clock-o"></span>4 Lessons / 12 week</div>';
+
+              echo '<h3><a href="#">' .htmlspecialchars($name).' - '.htmlspecialchars($teachername).'</a></h3>';
+              echo '<p>'.htmlspecialchars($description).'</p>';
+              echo '
+            </div>
+            <div class="d-flex border-top stats">';
+              echo '<div class="py-3 px-4"><span class="icon-users"></span>'.htmlspecialchars($countstudents).'</div>';
+
+              echo '<div class="py-3 px-4 w-20 ml-auto border-left"><button class="btn btn-primary m-1">Subscribe</button></div>
+            </div>
+          </div>';
+      }
+            
+      ?>
+
+      <div class="course bg-white h-100 align-self-stretch mr-5 mt-5">
+        <figure class="m-0">
+          <a href="course-single.php"><img src="images/img_3.jpg" alt="Image" class="img-fluid"></a>
+        </figure>
+        <div class="course-inner-text py-4 px-4">
+          <!-- <span class="course-price">$20</span> -->
+          <div class="meta"><span class="icon-clock-o"></span>4 Lessons / 12 week</div>
+          <h3><a href="#">TESTNAME</a></h3>
+          <p>TESTTEACHERNAME</p>
+        </div>
+        <div class="d-flex border-top stats">
+          <div class="py-3 px-4"><span class="icon-users"></span>TESTCOUNT</div>
+          <div class="py-3 px-4 w-20 ml-auto border-left"><button class="btn btn-primary m-1">Subscribe</button></div>
+        </div>
+      </div>
+
+
     
 
 
@@ -331,9 +394,10 @@
           <div class="col-md-3 ml-auto">
             <h3>Links</h3>
             <ul class="list-unstyled footer-links">
-              <li><a href="index.php">Home</a></li>
-              <li><a href="consultations.php">Consultations</a></li>
-              <li><a href="teachers.php">Teachers</a></li>
+            <li><a href="index.php" class="nav-link">Home</a></li>
+                    <li><a href="consultations.php" class="nav-link">Consultations</a></li>
+                    <li><a href="teachers.php" class="nav-link">Teachers</a></li>
+                    <li><a href="profile.php" class="nav-link">Profile</a></li>
             </ul>
           </div>
 

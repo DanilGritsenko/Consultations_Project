@@ -7,8 +7,12 @@ $yhendus=new mysqli($serverinimi, $kasutajanimi, $parool, $andmebaas);
 $yhendus->set_charset("utf8");
 
 if ($yhendus) {
-    echo "Connected!";
   } else {
     echo "Connection Failed";
   }
+
+error_reporting(E_ALL & E_STRICT);
+ini_set('display_errors', '1');
+ini_set('log_errors', '0');
+ini_set('error_log', './');
 ?>
