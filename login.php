@@ -35,7 +35,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // Validate credentials
     if(empty($username_err) && empty($password_err)){
         // Prepare a select statement
-        $sql = "SELECT id, username, password FROM users WHERE username = ?";
+        $sql = "SELECT id, username, password, name FROM users WHERE username = ?";
         
         if($stmt = mysqli_prepare($yhendus, $sql)){
             // Bind variables to the prepared statement as parameters
@@ -52,7 +52,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 // Check if username exists, if yes then verify password
                 if(mysqli_stmt_num_rows($stmt) == 1){                    
                     // Bind result variables
-                    mysqli_stmt_bind_result($stmt, $id, $username, $hashed_password);
+                    mysqli_stmt_bind_result($stmt, $id, $username, $hashed_password, $name);
                     if(mysqli_stmt_fetch($stmt)){
                         if(password_verify($password, $hashed_password)){
                             // Password is correct, so start a new session
@@ -61,10 +61,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             // Store data in session variables
                             $_SESSION["loggedin"] = true;
                             $_SESSION["id"] = $id;
-                            $_SESSION["username"] = $username;                            
+                            $_SESSION["username"] = $username;
+                            $_SESSION["name"] = $name;                            
                             
                             // Redirect user to welcome page
-                            header("location: index.php");
+                            header("location: profile.php");
                         } else{
                             // Display an error message if password is not valid
                             $password_err = "The password you entered was not valid.";
@@ -116,11 +117,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <link rel="stylesheet" href="css/style.css">
 
     <script>
-
     function Register(){
       window.location.href = "register.php";
     }
-
     </script>
 
     <meta charset="UTF-8">
@@ -155,6 +154,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <li><a href="#home-section" class="nav-link">Home</a></li>
                 <li><a href="consultations.php" class="nav-link">Consultations</a></li>
                 <li><a href="teachers.php" class="nav-link">Teachers</a></li>
+                <li><a href="consRegister.php" class="nav-link">Register on Consultations</a></li>
                 <?php
                
                 
@@ -193,10 +193,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
               <div class="row align-items-center">
                 <div class="col-lg-6 mb-4">
                   <h1  data-aos="fade-up" data-aos-delay="100">About Consultations</h1>
-                  <p class="mb-4"  data-aos="fade-up" data-aos-delay="200">Consultations Project is a web project made by TARpv17 group at TTHK, The group consists of following students: Danil Gritsenko, Vladimir Trohhalev, Nikita Tšaika</p>
+                  <p class="mb-4" data-aos="fade-up" data-aos-delay="200">Consultations Project is a web project made by TARpv17 group at TTHK, The group consists of following students: Danil Gritsenko, Vladimir Trohhalev, Nikita Tšaika</p>
                   <!--<p data-aos="fade-up" data-aos-delay="300"><a href="#" class="btn btn-primary py-3 px-5 btn-pill">Admission Now</a></p>-->
                   <div class="wrapper"  data-aos="fade-up" data-aos-delay="100">
-        <h2>Login</h2>
+        <h1>Login</h1>
         <p>Please fill in your credentials to login.</p>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
@@ -227,130 +227,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
       </div>
     </div>
 
-    
-    <div class="site-section courses-title" id="courses-section">
-      <div class="container">
-        <div class="row mb-5 justify-content-center">
-          <div class="col-lg-7 text-center" data-aos="fade-up" data-aos-delay="">
-            <h2 class="section-title">Consultations</h2>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="site-section courses-entry-wrap"  data-aos="fade-up" data-aos-delay="100">
-      <div class="container">
-        <div class="row">
-
-          <div class="owl-carousel col-12 nonloop-block-14">
-          
-            <div class="course bg-white h-100 align-self-stretch">
-              <figure class="m-0">
-                <a href="course-single.php"><img src="images/img_1.jpg" alt="Image" class="img-fluid"></a>
-              </figure>
-              <div class="course-inner-text py-4 px-4">
-                <!-- <span class="course-price">$20</span> -->
-                <div class="meta"><span class="icon-clock-o"></span>4 Lessons / 12 week</div>
-                <h3><a href="#">Programming</a></h3>
-                <p>Õpetaja: Marina Oleinik </p>
-              </div>
-              <div class="d-flex border-top stats">
-                <div class="py-3 px-4"><span class="icon-users"></span> 34 students</div>
-                <div class="py-3 px-4 w-25 ml-auto border-left"><span class="icon-chat"></span> 2</div>
-              </div>
-            </div>
-
-            <div class="course bg-white h-100 align-self-stretch">
-              <figure class="m-0">
-                <a href="course-single.php"><img src="images/img_2.jpg" alt="Image" class="img-fluid"></a>
-              </figure>
-              <div class="course-inner-text py-4 px-4">
-                <!-- <span class="course-price">$99</span> -->
-                <div class="meta"><span class="icon-clock-o"></span>4 Lessons / 12 week</div>
-                <h3><a href="#">Hajusrakenduste alused</a></h3>
-                <p>Õpetaja: Irina Merkulova</p>
-              </div>
-              <div class="d-flex border-top stats">
-                <div class="py-3 px-4"><span class="icon-users"></span> 19 students</div>
-                <div class="py-3 px-4 w-25 ml-auto border-left"><span class="icon-chat"></span> 2</div>
-              </div>
-            </div>
-
-            <div class="course bg-white h-100 align-self-stretch">
-              <figure class="m-0">
-                <a href="course-single.php"><img src="images/img_3.jpg" alt="Image" class="img-fluid"></a>
-              </figure>
-              <div class="course-inner-text py-4 px-4">
-                <!-- <span class="course-price">$99</span> -->
-                <div class="meta"><span class="icon-clock-o"></span>4 Lessons / 12 week</div>
-                <h3><a href="#">Tööõigus</a></h3>
-                <p>Õpetaja: Irina Maksimova</p>
-              </div>
-              <div class="d-flex border-top stats">
-                <div class="py-3 px-4"><span class="icon-users"></span> 12 students</div>
-                <div class="py-3 px-4 w-25 ml-auto border-left"><span class="icon-chat"></span> 2</div>
-              </div>
-            </div>
-
-
-
-            <div class="course bg-white h-100 align-self-stretch">
-              <figure class="m-0">
-                <a href="course-single.php"><img src="images/img_4.jpg" alt="Image" class="img-fluid"></a>
-              </figure>
-              <div class="course-inner-text py-4 px-4">
-                <!-- <span class="course-price">$20</span> -->
-                <div class="meta"><span class="icon-clock-o"></span>4 Lessons / week</div>
-                <h3><a href="#">Rakenduste Testimine</a></h3>
-                <p>Õpetaja: Dmitri Kanarjov</p>
-              </div>
-              <div class="d-flex border-top stats">
-                <div class="py-3 px-4"><span class="icon-users"></span> 24 students</div>
-                <div class="py-3 px-4 w-25 ml-auto border-left"><span class="icon-chat"></span> 5</div>
-              </div>
-            </div>
-
-            <!--<div class="course bg-white h-100 align-self-stretch">
-              <figure class="m-0">
-                <a href="course-single.php"><img src="images/img_5.jpg" alt="Image" class="img-fluid"></a>
-              </figure>
-              <div class="course-inner-text py-4 px-4">
-                <span class="course-price">$99</span>
-                <div class="meta"><span class="icon-clock-o"></span>4 Lessons / week</div>
-                <h3><a href="#">Multimedia</a></h3>
-                <p>Lorem ipsum dolor sit amet ipsa nulla adipisicing elit. </p>
-              </div>
-              <div class="d-flex border-top stats">
-                <div class="py-3 px-4"><span class="icon-users"></span> 14 students</div>
-                <div class="py-3 px-4 w-25 ml-auto border-left"><span class="icon-chat"></span> 0</div>
-              </div>
-            </div>
-
-            <div class="course bg-white h-100 align-self-stretch">
-              <figure class="m-0">
-                <a href="course-single.php"><img src="images/img_6.jpg" alt="Image" class="img-fluid"></a>
-              </figure>
-              <div class="course-inner-text py-4 px-4">
-                <span class="course-price">$99</span>
-                <div class="meta"><span class="icon-clock-o"></span>4 Lessons / week</div>
-                <h3><a href="#">Programming</a></h3>
-                <p>Lorem ipsum dolor sit amet ipsa nulla adipisicing elit. </p>
-              </div>
-              <div class="d-flex border-top stats">
-                <div class="py-3 px-4"><span class="icon-users"></span> 18 students</div>
-                <div class="py-3 px-4 w-25 ml-auto border-left"><span class="icon-chat"></span> 2</div>
-              </div>
-            </div> -->
-
           </div>
 
          
 
-        </div>
-        <div class="row justify-content-center">
-          <div class="col-7 text-center">
-            <button class="customPrevBtn btn btn-primary m-1">Prev</button>
-            <button class="customNextBtn btn btn-primary m-1">Next</button>
-          </div>
         </div>
       </div>
     </div>
@@ -371,20 +251,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
           <div class="col-lg-4 ml-auto" data-aos="fade-up" data-aos-delay="200">
             <h2 class="text-black mb-4">We Are Excellent In Education</h2>
             <p class="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem maxime nam porro possimus fugiat quo molestiae illo.</p>
-
             <div class="d-flex align-items-center custom-icon-wrap mb-3">
               <span class="custom-icon-inner mr-3"><span class="icon icon-graduation-cap"></span></span>
               <div><h3 class="m-0">22,931 Yearly Graduates</h3></div>
             </div>
-
             <div class="d-flex align-items-center custom-icon-wrap">
               <span class="custom-icon-inner mr-3"><span class="icon icon-university"></span></span>
               <div><h3 class="m-0">150 Universities Worldwide</h3></div>
             </div>
-
           </div>
         </div>
-
         <div class="row mb-5 align-items-center">
           <div class="col-lg-7 mb-5 order-1 order-lg-2" data-aos="fade-up" data-aos-delay="100">
             <img src="images/undraw_teaching.svg" alt="Image" class="img-fluid">
@@ -392,20 +268,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
           <div class="col-lg-4 mr-auto order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
             <h2 class="text-black mb-4">Strive for Excellent</h2>
             <p class="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem maxime nam porro possimus fugiat quo molestiae illo.</p>
-
             <div class="d-flex align-items-center custom-icon-wrap mb-3">
               <span class="custom-icon-inner mr-3"><span class="icon icon-graduation-cap"></span></span>
               <div><h3 class="m-0">22,931 Yearly Graduates</h3></div>
             </div>
-
             <div class="d-flex align-items-center custom-icon-wrap">
               <span class="custom-icon-inner mr-3"><span class="icon icon-university"></span></span>
               <div><h3 class="m-0">150 Universities Worldwide</h3></div>
             </div>
-
           </div>
         </div>
-
         <div class="row mb-5 align-items-center">
           <div class="col-lg-7 mb-5" data-aos="fade-up" data-aos-delay="100">
             <img src="images/undraw_teacher.svg" alt="Image" class="img-fluid">
@@ -413,35 +285,27 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
           <div class="col-lg-4 ml-auto" data-aos="fade-up" data-aos-delay="200">
             <h2 class="text-black mb-4">Education is life</h2>
             <p class="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem maxime nam porro possimus fugiat quo molestiae illo.</p>
-
             <div class="d-flex align-items-center custom-icon-wrap mb-3">
               <span class="custom-icon-inner mr-3"><span class="icon icon-graduation-cap"></span></span>
               <div><h3 class="m-0">22,931 Yearly Graduates</h3></div>
             </div>
-
             <div class="d-flex align-items-center custom-icon-wrap">
               <span class="custom-icon-inner mr-3"><span class="icon icon-university"></span></span>
               <div><h3 class="m-0">150 Universities Worldwide</h3></div>
             </div>
-
           </div>
         </div>
-
       </div>
     </div>
-
     <div class="site-section" id="teachers-section">
       <div class="container">
-
         <div class="row mb-5 justify-content-center">
           <div class="col-lg-7 mb-5 text-center"  data-aos="fade-up" data-aos-delay="">
             <h2 class="section-title">Our Teachers</h2>
             <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam repellat aut neque! Doloribus sunt non aut reiciendis, vel recusandae obcaecati hic dicta repudiandae in quas quibusdam ullam, illum sed veniam!</p>
           </div>
         </div>
-
         <div class="row">
-
           <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="100">
             <div class="teacher text-center">
               <img src="images/person_1.jpg" alt="Image" class="img-fluid w-50 rounded-circle mx-auto mb-4">
@@ -452,7 +316,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
               </div>
             </div>
           </div>
-
           <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="200">
             <div class="teacher text-center">
               <img src="images/person_2.jpg" alt="Image" class="img-fluid w-50 rounded-circle mx-auto mb-4">
@@ -463,7 +326,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
               </div>
             </div>
           </div>
-
           <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="300">
             <div class="teacher text-center">
               <img src="images/person_3.jpg" alt="Image" class="img-fluid w-50 rounded-circle mx-auto mb-4">
@@ -477,7 +339,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         </div>
       </div>
     </div>
-
     <div class="site-section bg-image overlay" style="background-image: url('images/hero_1.jpg');">
       <div class="container">
         <div class="row justify-content-center align-items-center">
@@ -491,9 +352,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         </div>
       </div>
     </div>
-
     <div class="site-section pb-0">
-
       <div class="future-blobs">
         <div class="blob_2">
           <img src="images/blob_2.svg" alt="Image">
@@ -510,42 +369,32 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         </div>
         <div class="row">
           <div class="col-lg-4 ml-auto align-self-start"  data-aos="fade-up" data-aos-delay="100">
-
             <div class="p-4 rounded bg-white why-choose-us-box">
-
               <div class="d-flex align-items-center custom-icon-wrap custom-icon-light mb-3">
                 <div class="mr-3"><span class="custom-icon-inner"><span class="icon icon-graduation-cap"></span></span></div>
                 <div><h3 class="m-0">22,931 Yearly Graduates</h3></div>
               </div>
-
               <div class="d-flex align-items-center custom-icon-wrap custom-icon-light mb-3">
                 <div class="mr-3"><span class="custom-icon-inner"><span class="icon icon-university"></span></span></div>
                 <div><h3 class="m-0">150 Universities Worldwide</h3></div>
               </div>
-
               <div class="d-flex align-items-center custom-icon-wrap custom-icon-light mb-3">
                 <div class="mr-3"><span class="custom-icon-inner"><span class="icon icon-graduation-cap"></span></span></div>
                 <div><h3 class="m-0">Top Professionals in The World</h3></div>
               </div>
-
               <div class="d-flex align-items-center custom-icon-wrap custom-icon-light mb-3">
                 <div class="mr-3"><span class="custom-icon-inner"><span class="icon icon-university"></span></span></div>
                 <div><h3 class="m-0">Expand Your Knowledge</h3></div>
               </div>
-
               <div class="d-flex align-items-center custom-icon-wrap custom-icon-light mb-3">
                 <div class="mr-3"><span class="custom-icon-inner"><span class="icon icon-graduation-cap"></span></span></div>
                 <div><h3 class="m-0">Best Online Teaching Assistant Courses</h3></div>
               </div>
-
               <div class="d-flex align-items-center custom-icon-wrap custom-icon-light">
                 <div class="mr-3"><span class="custom-icon-inner"><span class="icon icon-university"></span></span></div>
                 <div><h3 class="m-0">Best Teachers</h3></div>
               </div>
-
             </div>
-
-
           </div>
           <div class="col-lg-7 align-self-end"  data-aos="fade-left" data-aos-delay="200">
             <img src="images/person_transparent.png" alt="Image" class="img-fluid">
@@ -553,18 +402,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         </div>
       </div>
     </div>
-
     
-
-
-
     <div class="site-section bg-light" id="contact-section">
       <div class="container">
-
         <div class="row justify-content-center">
           <div class="col-md-7">
-
-
             
             <h2 class="section-title mb-3">Message Us</h2>
             <p class="mb-5">Natus totam voluptatibus animi aspernatur ducimus quas obcaecati mollitia quibusdam temporibus culpa dolore molestias blanditiis consequuntur sunt nisi.</p>
@@ -578,13 +420,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                   <input type="text" class="form-control" placeholder="Last name">
                 </div>
               </div>
-
               <div class="form-group row">
                 <div class="col-md-12">
                   <input type="text" class="form-control" placeholder="Subject">
                 </div>
               </div>
-
               <div class="form-group row">
                 <div class="col-md-12">
                   <input type="email" class="form-control" placeholder="Email">
@@ -595,14 +435,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                   <textarea class="form-control" id="" cols="30" rows="10" placeholder="Write your message here."></textarea>
                 </div>
               </div>
-
               <div class="form-group row">
                 <div class="col-md-6">
                   
                   <input type="submit" class="btn btn-primary py-3 px-5 btn-block btn-pill" value="Send Message">
                 </div>
               </div>
-
             </form>
           </div>
         </div>

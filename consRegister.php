@@ -102,10 +102,10 @@
                    <table class="table table-light">
   <thead class="thead-dark">
     <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
+      <th scope="col">ID</th>
+      <th scope="col">Consultation Name</th>
+      <th scope="col">User's Name</th>
+      <th scope="col">Teacher's Name</th>
     </tr>
   </thead>
   <tbody>

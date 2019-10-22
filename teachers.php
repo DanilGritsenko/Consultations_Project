@@ -44,14 +44,27 @@
       
       <div class="container-fluid">
         <div class="d-flex align-items-center">
-          <div class="site-logo mr-auto w-25"><a href="index.html">Consultations</a></div>
+          <div class="site-logo mr-auto w-25"><a href="index.php">Consultations</a></div>
 
           <div class="mx-auto text-center">
             <nav class="site-navigation position-relative text-right" role="navigation">
               <ul class="site-menu main-menu js-clone-nav mx-auto d-none d-lg-block  m-0 p-0">
-                <li><a href="#home-section" class="nav-link">Home</a></li>
-                <li><a href="#courses-section" class="nav-link">Consultations</a></li>
-                <li><a href="#teachers-section" class="nav-link">Teachers</a></li>
+                  <li><a href="index.php" class="nav-link">Home</a></li>
+                  <li><a href="consultations.php" class="nav-link">Consultations</a></li>
+                  <li><a href="teachers.php" class="nav-link">Teachers</a></li>
+                  <li><a href="consRegister.php" class="nav-link">Register on Consultations</a></li>
+                  <?php
+                session_start();
+                
+                // Check if the user is already logged in, if yes then redirect him to welcome page
+                if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+                    echo("<li><a href='profile.php' class='nav-link'>Profile</a></li>");
+                    echo("<li><a href='logout.php' class='nav-link'>Log out</a></li>");
+                }
+                else{
+                  echo("<li><a href='login.php' class='nav-link'>Login</a></li>");
+                }
+                ?>
               </ul>
             </nav>
           </div>
@@ -77,13 +90,13 @@
             <div class="col-12">
               <div class="row align-items-center">
                 <div class="col-lg-6 mb-4">
-                  <h1  data-aos="fade-up" data-aos-delay="100">About Consultations</h1>
-                  <p class="mb-4"  data-aos="fade-up" data-aos-delay="200">Consultations Project is a web project made by TARpv17 group at TTHK, The group consists of following students: Danil Gritsenko, Vladimir Trohhalev, Nikita Tšaika</p>
+                  <h1  data-aos="fade-up" data-aos-delay="100">List of teachers</h1>
+                  <p class="mb-4"  data-aos="fade-up" data-aos-delay="200">On this page you can find information about teachers</p>
                   <!--<p data-aos="fade-up" data-aos-delay="300"><a href="#" class="btn btn-primary py-3 px-5 btn-pill">Admission Now</a></p>-->
 
                 </div>
 
-                <div class="col-lg-6 ml-auto" data-aos="fade-up" data-aos-delay="500">
+                <!-- <div class="col-lg-6 ml-auto" data-aos="fade-up" data-aos-delay="500">
                   <form action="" method="post" class="form-box">
                     <h3 class="h4 text-black mb-4">Sign Up</h3>
                     <div class="form-group">
@@ -98,7 +111,7 @@
                     <div class="form-group">
                       <input type="submit" class="btn btn-primary btn-pill" value="Sign up">
                     </div>
-                  </form>
+                  </form> -->
 
                 </div>
               </div>
@@ -110,7 +123,7 @@
     </div>
 
     
-    <div class="site-section courses-title" id="courses-section">
+    <!-- <div class="site-section courses-title" id="courses-section">
       <div class="container">
         <div class="row mb-5 justify-content-center">
           <div class="col-lg-7 text-center" data-aos="fade-up" data-aos-delay="">
@@ -127,10 +140,10 @@
 
             <div class="course bg-white h-100 align-self-stretch">
               <figure class="m-0">
-                <a href="course-single.html"><img src="images/img_1.jpg" alt="Image" class="img-fluid"></a>
+                <a href="course-single.php"><img src="images/img_1.jpg" alt="Image" class="img-fluid"></a>
               </figure>
               <div class="course-inner-text py-4 px-4">
-                <!-- <span class="course-price">$20</span> -->
+                 <span class="course-price">$20</span> 
                 <div class="meta"><span class="icon-clock-o"></span>4 Lessons / 12 week</div>
                 <h3><a href="#">Programming</a></h3>
                 <p>Õpetaja: Marina Oleinik </p>
@@ -143,10 +156,10 @@
 
             <div class="course bg-white h-100 align-self-stretch">
               <figure class="m-0">
-                <a href="course-single.html"><img src="images/img_2.jpg" alt="Image" class="img-fluid"></a>
+                <a href="course-single.php"><img src="images/img_2.jpg" alt="Image" class="img-fluid"></a>
               </figure>
               <div class="course-inner-text py-4 px-4">
-                <!-- <span class="course-price">$99</span> -->
+                 <span class="course-price">$99</span> 
                 <div class="meta"><span class="icon-clock-o"></span>4 Lessons / 12 week</div>
                 <h3><a href="#">Hajusrakenduste alused</a></h3>
                 <p>Õpetaja: Irina Merkulova</p>
@@ -159,10 +172,10 @@
 
             <div class="course bg-white h-100 align-self-stretch">
               <figure class="m-0">
-                <a href="course-single.html"><img src="images/img_3.jpg" alt="Image" class="img-fluid"></a>
+                <a href="course-single.php"><img src="images/img_3.jpg" alt="Image" class="img-fluid"></a>
               </figure>
               <div class="course-inner-text py-4 px-4">
-                <!-- <span class="course-price">$99</span> -->
+                 <span class="course-price">$99</span> 
                 <div class="meta"><span class="icon-clock-o"></span>4 Lessons / 12 week</div>
                 <h3><a href="#">Tööõigus</a></h3>
                 <p>Õpetaja: Irina Maksimova</p>
@@ -177,10 +190,10 @@
 
             <div class="course bg-white h-100 align-self-stretch">
               <figure class="m-0">
-                <a href="course-single.html"><img src="images/img_4.jpg" alt="Image" class="img-fluid"></a>
+                <a href="course-single.php"><img src="images/img_4.jpg" alt="Image" class="img-fluid"></a>
               </figure>
               <div class="course-inner-text py-4 px-4">
-                <!-- <span class="course-price">$20</span> -->
+                 <span class="course-price">$20</span> 
                 <div class="meta"><span class="icon-clock-o"></span>4 Lessons / week</div>
                 <h3><a href="#">Rakenduste Testimine</a></h3>
                 <p>Õpetaja: Dmitri Kanarjov</p>
@@ -189,11 +202,10 @@
                 <div class="py-3 px-4"><span class="icon-users"></span> 24 students</div>
                 <div class="py-3 px-4 w-25 ml-auto border-left"><span class="icon-chat"></span> 5</div>
               </div>
-            </div>
-
+            </div>-->
             <!--<div class="course bg-white h-100 align-self-stretch">
               <figure class="m-0">
-                <a href="course-single.html"><img src="images/img_5.jpg" alt="Image" class="img-fluid"></a>
+                <a href="course-single.php"><img src="images/img_5.jpg" alt="Image" class="img-fluid"></a>
               </figure>
               <div class="course-inner-text py-4 px-4">
                 <span class="course-price">$99</span>
@@ -209,7 +221,7 @@
 
             <div class="course bg-white h-100 align-self-stretch">
               <figure class="m-0">
-                <a href="course-single.html"><img src="images/img_6.jpg" alt="Image" class="img-fluid"></a>
+                <a href="course-single.php"><img src="images/img_6.jpg" alt="Image" class="img-fluid"></a>
               </figure>
               <div class="course-inner-text py-4 px-4">
                 <span class="course-price">$99</span>
@@ -223,7 +235,7 @@
               </div>
             </div> -->
 
-          </div>
+         <!--  </div>
 
          
 
@@ -235,7 +247,38 @@
           </div>
         </div>
       </div>
+    </div> -->
+    <div class="list-group">
+      <a href="#" class="list-group-item list-group-item-action active">
+        List of Teachers
+      </a>
+      <a href="#" class="list-group-item list-group-item-action">Marina Oleinik - Programming</a>
+      <a href="#" class="list-group-item list-group-item-action">Irina Merkulova - Data Bases</a>
+      <a href="#" class="list-group-item list-group-item-action">Irina Maksimova - Design</a>
+      <a href="#" class="list-group-item list-group-item-action">Dmitri Kanarjov - Testing</a>
+      <button class="btn btn-primary" type="submit">Add New Teacher</button>
+
+
     </div>
+
+
+    <footer class="footer-section bg-white">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4">
+            <h3>About Consultations</h3>
+            <p>Consultations Project is a web project made by TARpv17 group at TTHK, The group consists of following students: Danil Gritsenko, Vladimir Trohhalev, Nikita Tšaika</p>
+          </div>
+
+          <div class="col-md-3 ml-auto">
+            <h3>Links</h3>
+            <ul class="list-unstyled footer-links">
+                <li><a href="index.php" class="nav-link">Home</a></li>
+                <li><a href="consultations.php" class="nav-link">Consultations</a></li>
+                <li><a href="teachers.php" class="nav-link">Teachers</a></li>
+                <li><a href="profile.php" class="nav-link">Profile</a></li>
+            </ul>
+          </div>
 
     <!--
     <div class="site-section" id="programs-section">
@@ -490,7 +533,7 @@
         </div>
       </div>
     </div>
-    -->
+    
     
      
     <footer class="footer-section bg-white">

@@ -24,6 +24,8 @@
     <link rel="stylesheet" href="css/aos.css">
 
     <link rel="stylesheet" href="css/style.css">
+	
+	
     
   </head>
   <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
@@ -44,14 +46,27 @@
       
       <div class="container-fluid">
         <div class="d-flex align-items-center">
-          <div class="site-logo mr-auto w-25"><a href="index.html">Consultations</a></div>
+          <div class="site-logo mr-auto w-25"><a href="index.php">Consultations</a></div>
 
           <div class="mx-auto text-center">
             <nav class="site-navigation position-relative text-right" role="navigation">
               <ul class="site-menu main-menu js-clone-nav mx-auto d-none d-lg-block  m-0 p-0">
-                <li><a href="#home-section" class="nav-link">Home</a></li>
-                <li><a href="#courses-section" class="nav-link">Consultations</a></li>
-                <li><a href="#teachers-section" class="nav-link">Teachers</a></li>
+                <li><a href="index.php" class="nav-link">Home</a></li>
+                <li><a href="consultations.php" class="nav-link">Consultations</a></li>
+                <li><a href="teachers.php" class="nav-link">Teachers</a></li>
+                <li><a href="consRegister.php" class="nav-link">Register on Consultations</a></li>
+                <?php
+                session_start();
+                
+                // Check if the user is already logged in, if yes then redirect him to welcome page
+                if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+                    echo("<li><a href='profile.php' class='nav-link'>Profile</a></li>");
+                    echo("<li><a href='logout.php' class='nav-link'>Log out</a></li>");
+                }
+                else{
+                  echo("<li><a href='login.php' class='nav-link'>Login</a></li>");
+                }
+                ?>
               </ul>
             </nav>
           </div>
@@ -76,165 +91,43 @@
           <div class="row align-items-center">
             <div class="col-12">
               <div class="row align-items-center">
-                <div class="col-lg-6 mb-4">
-                  <h1  data-aos="fade-up" data-aos-delay="100">About Consultations</h1>
-                  <p class="mb-4"  data-aos="fade-up" data-aos-delay="200">Consultations Project is a web project made by TARpv17 group at TTHK, The group consists of following students: Danil Gritsenko, Vladimir Trohhalev, Nikita Tšaika</p>
-                  <!--<p data-aos="fade-up" data-aos-delay="300"><a href="#" class="btn btn-primary py-3 px-5 btn-pill">Admission Now</a></p>-->
-
+	
+	<div class="container">
+        <div class="row align-items-center" data-aos="fade-up" data-aos-delay="100">
+            <div class="col-xs-12 col-sm-6 col-md-6" style="background-color: rgba(100, 106, 117, 0.4); color: rgb(121,113,234)">
+                <div class="well well-sm">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <img src="http://placehold.it/380x500" alt="" width="150" height="200" class="img-rounded img-responsive mt-2" />
+                        </div>
+                        <div class="col-sm-6" style="color: rgb(121,113,234)">
+                            <h4>
+                            <?php 
+                            echo htmlspecialchars($_SESSION["name"]);
+                            echo " ("; 
+                            echo htmlspecialchars($_SESSION["username"]);
+                            echo ")";
+                            
+                            
+                            ?></h4>
+                            <small><cite title="Estonia">Estonia <i class="glyphicon glyphicon-map-marker">
+                            </i></cite></small>
+                            <p style="color: rgb(121,113,234)">
+                                <i class="glyphicon glyphicon-envelope"></i>email@example.com
+                                <br />
+                                <i class="glyphicon glyphicon-globe"></i><a href="http://www.jquery2dotnet.com">www.jquery2dotnet.com</a>
+                            <!-- Split button -->
+                            <div class="btn-group mb-2">
+                                <button type="button" class="btn btn-primary">
+                                    Edit</button>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    </div>
                 </div>
-
-                <div class="col-lg-6 ml-auto" data-aos="fade-up" data-aos-delay="500">
-                  <form action="" method="post" class="form-box">
-                    <h3 class="h4 text-black mb-4">Sign Up</h3>
-                    <div class="form-group">
-                      <input type="text" class="form-control" placeholder="Email Addresss">
-                    </div>
-                    <div class="form-group">
-                      <input type="password" class="form-control" placeholder="Password">
-                    </div>
-                    <div class="form-group mb-4">
-                      <input type="password" class="form-control" placeholder="Re-type Password">
-                    </div>
-                    <div class="form-group">
-                      <input type="submit" class="btn btn-primary btn-pill" value="Sign up">
-                    </div>
-                  </form>
-
-                </div>
-              </div>
             </div>
-            
-          </div>
         </div>
-      </div>
-    </div>
-
-    
-    <div class="site-section courses-title" id="courses-section">
-      <div class="container">
-        <div class="row mb-5 justify-content-center">
-          <div class="col-lg-7 text-center" data-aos="fade-up" data-aos-delay="">
-            <h2 class="section-title">Consultations</h2>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="site-section courses-entry-wrap"  data-aos="fade-up" data-aos-delay="100">
-      <div class="container">
-        <div class="row">
-
-          <div class="owl-carousel col-12 nonloop-block-14">
-
-            <div class="course bg-white h-100 align-self-stretch">
-              <figure class="m-0">
-                <a href="course-single.html"><img src="images/img_1.jpg" alt="Image" class="img-fluid"></a>
-              </figure>
-              <div class="course-inner-text py-4 px-4">
-                <!-- <span class="course-price">$20</span> -->
-                <div class="meta"><span class="icon-clock-o"></span>4 Lessons / 12 week</div>
-                <h3><a href="#">Programming</a></h3>
-                <p>Õpetaja: Marina Oleinik </p>
-              </div>
-              <div class="d-flex border-top stats">
-                <div class="py-3 px-4"><span class="icon-users"></span> 34 students</div>
-                <div class="py-3 px-4 w-25 ml-auto border-left"><span class="icon-chat"></span> 2</div>
-              </div>
-            </div>
-
-            <div class="course bg-white h-100 align-self-stretch">
-              <figure class="m-0">
-                <a href="course-single.html"><img src="images/img_2.jpg" alt="Image" class="img-fluid"></a>
-              </figure>
-              <div class="course-inner-text py-4 px-4">
-                <!-- <span class="course-price">$99</span> -->
-                <div class="meta"><span class="icon-clock-o"></span>4 Lessons / 12 week</div>
-                <h3><a href="#">Hajusrakenduste alused</a></h3>
-                <p>Õpetaja: Irina Merkulova</p>
-              </div>
-              <div class="d-flex border-top stats">
-                <div class="py-3 px-4"><span class="icon-users"></span> 19 students</div>
-                <div class="py-3 px-4 w-25 ml-auto border-left"><span class="icon-chat"></span> 2</div>
-              </div>
-            </div>
-
-            <div class="course bg-white h-100 align-self-stretch">
-              <figure class="m-0">
-                <a href="course-single.html"><img src="images/img_3.jpg" alt="Image" class="img-fluid"></a>
-              </figure>
-              <div class="course-inner-text py-4 px-4">
-                <!-- <span class="course-price">$99</span> -->
-                <div class="meta"><span class="icon-clock-o"></span>4 Lessons / 12 week</div>
-                <h3><a href="#">Tööõigus</a></h3>
-                <p>Õpetaja: Irina Maksimova</p>
-              </div>
-              <div class="d-flex border-top stats">
-                <div class="py-3 px-4"><span class="icon-users"></span> 12 students</div>
-                <div class="py-3 px-4 w-25 ml-auto border-left"><span class="icon-chat"></span> 2</div>
-              </div>
-            </div>
-
-
-
-            <div class="course bg-white h-100 align-self-stretch">
-              <figure class="m-0">
-                <a href="course-single.html"><img src="images/img_4.jpg" alt="Image" class="img-fluid"></a>
-              </figure>
-              <div class="course-inner-text py-4 px-4">
-                <!-- <span class="course-price">$20</span> -->
-                <div class="meta"><span class="icon-clock-o"></span>4 Lessons / week</div>
-                <h3><a href="#">Rakenduste Testimine</a></h3>
-                <p>Õpetaja: Dmitri Kanarjov</p>
-              </div>
-              <div class="d-flex border-top stats">
-                <div class="py-3 px-4"><span class="icon-users"></span> 24 students</div>
-                <div class="py-3 px-4 w-25 ml-auto border-left"><span class="icon-chat"></span> 5</div>
-              </div>
-            </div>
-
-            <!--<div class="course bg-white h-100 align-self-stretch">
-              <figure class="m-0">
-                <a href="course-single.html"><img src="images/img_5.jpg" alt="Image" class="img-fluid"></a>
-              </figure>
-              <div class="course-inner-text py-4 px-4">
-                <span class="course-price">$99</span>
-                <div class="meta"><span class="icon-clock-o"></span>4 Lessons / week</div>
-                <h3><a href="#">Multimedia</a></h3>
-                <p>Lorem ipsum dolor sit amet ipsa nulla adipisicing elit. </p>
-              </div>
-              <div class="d-flex border-top stats">
-                <div class="py-3 px-4"><span class="icon-users"></span> 14 students</div>
-                <div class="py-3 px-4 w-25 ml-auto border-left"><span class="icon-chat"></span> 0</div>
-              </div>
-            </div>
-
-            <div class="course bg-white h-100 align-self-stretch">
-              <figure class="m-0">
-                <a href="course-single.html"><img src="images/img_6.jpg" alt="Image" class="img-fluid"></a>
-              </figure>
-              <div class="course-inner-text py-4 px-4">
-                <span class="course-price">$99</span>
-                <div class="meta"><span class="icon-clock-o"></span>4 Lessons / week</div>
-                <h3><a href="#">Programming</a></h3>
-                <p>Lorem ipsum dolor sit amet ipsa nulla adipisicing elit. </p>
-              </div>
-              <div class="d-flex border-top stats">
-                <div class="py-3 px-4"><span class="icon-users"></span> 18 students</div>
-                <div class="py-3 px-4 w-25 ml-auto border-left"><span class="icon-chat"></span> 2</div>
-              </div>
-            </div> -->
-
-          </div>
-
-         
-
-        </div>
-        <div class="row justify-content-center">
-          <div class="col-7 text-center">
-            <button class="customPrevBtn btn btn-primary m-1">Prev</button>
-            <button class="customNextBtn btn btn-primary m-1">Next</button>
-          </div>
-        </div>
-      </div>
     </div>
 
     <!--
@@ -491,8 +384,8 @@
       </div>
     </div>
     -->
-    
-     
+   
+
     <footer class="footer-section bg-white">
       <div class="container">
         <div class="row">
@@ -504,10 +397,10 @@
           <div class="col-md-3 ml-auto">
             <h3>Links</h3>
             <ul class="list-unstyled footer-links">
-              <li><a href="#">Home</a></li>
-              <li><a href="#">Courses</a></li>
-              <li><a href="#">Programs</a></li>
-              <li><a href="#">Teachers</a></li>
+                <li><a href="index.php" class="nav-link">Home</a></li>
+                <li><a href="consultations.php" class="nav-link">Consultations</a></li>
+                <li><a href="teachers.php" class="nav-link">Teachers</a></li>
+                <li><a href="profile.php" class="nav-link">Profile</a></li>
             </ul>
           </div>
 
