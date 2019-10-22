@@ -29,6 +29,7 @@
 
     require_once "conf.php";
 
+    $counter = 0;
 
     ?>
     
@@ -258,12 +259,12 @@
       <div class="site-section courses-entry-wrap"  data-aos="fade-up" data-aos-delay="100">
       <div class="container">
         <div class="row">
-      <div class="course bg-white h-100 align-self-stretch mr-5">
+     <!-- <div class="course bg-white h-100 align-self-stretch mr-5">
         <figure class="m-0">
           <a href="course-single.php"><img src="images/img_3.jpg" alt="Image" class="img-fluid"></a>
         </figure>
         <div class="course-inner-text py-4 px-4">
-          <!-- <span class="course-price">$20</span> -->
+           <span class="course-price">$20</span>
           <div class="meta"><span class="icon-clock-o"></span>4 Lessons / 12 week</div>
           <h3><a href="#">Programming</a></h3>
           <p>Õpetaja: Marina Oleinik </p>
@@ -279,7 +280,7 @@
           <a href="course-single.php"><img src="images/img_2.jpg" alt="Image" class="img-fluid"></a>
         </figure>
         <div class="course-inner-text py-4 px-4">
-          <!-- <span class="course-price">$99</span> -->
+           <span class="course-price">$99</span> 
           <div class="meta"><span class="icon-clock-o"></span>6 Lessons / 12 week</div>
           <h3><a href="#">Data Bases</a></h3>
           <p>Õpetaja: Irina Merkulova</p>
@@ -296,7 +297,7 @@
           <a href="course-single.php"><img src="images/img_5.jpg" alt="Image" class="img-fluid"></a>
         </figure>
         <div class="course-inner-text py-4 px-4">
-          <!-- <span class="course-price">$99</span> -->
+           <span class="course-price">$99</span> 
           <div class="meta"><span class="icon-clock-o"></span>4 Lessons / 12 week</div>
           <h3><a href="#">Tööõigus</a></h3>
           <p>Õpetaja: Irina Maksimova</p>
@@ -312,7 +313,7 @@
           <a href="course-single.php"><img src="images/img_4.jpg" alt="Image" class="img-fluid"></a>
         </figure>
         <div class="course-inner-text py-4 px-4">
-          <!-- <span class="course-price">$99</span> -->
+           <span class="course-price">$99</span>
           <div class="meta"><span class="icon-clock-o"></span>4 Lessons / 12 week</div>
           <h3><a href="#">Tööõigus</a></h3>
           <p>Õpetaja: Irina Maksimova</p>
@@ -321,7 +322,7 @@
           <div class="py-3 px-4"><span class="icon-users"></span> 12 students</div>
           <div class="py-3 px-4 w-20 ml-auto border-left"><button class="btn btn-primary m-1">Subscribe</button></div>
         </div>
-      </div>
+      </div> -->
 
 
       <?php
@@ -330,19 +331,27 @@
       $kask->execute();
       while($kask->fetch()){
       }
+      $kask->close();
       $kask2=$yhendus->prepare("SELECT name FROM users WHERE id=$teacherid");
       $kask2->bind_result($teachername);
       $kask2->execute();
       while($kask2->fetch()){
-        
       }
+      $kask2->close();
 
-      $kask3=$yhendus->prepare("SELECT consID, consname, consdesc FROM consultation");
-      $kask3->bind_result($id, $name, $description, $countstudents);
+      $kask3=$yhendus->prepare("SELECT consultation.consID, consultation.consname, consultation.consdesc, users.name FROM consultation, users, registrations WHERE consultation.teacher=users.id");
+      $kask3->bind_result($id, $name, $description, $teachername);
       $kask3->execute();
       while($kask3->fetch()) {
+          if ($counter >= 3){
           echo '
-          <div class="course bg-white h-100 align-self-stretch mr-5 mt-5">
+          <div class="course bg-white h-100 align-self-stretch mr-5">';
+          }
+          else{
+            echo '
+          <div class="course bg-white h-100 align-self-stretch mr-5 mt-5">';
+          }
+          echo '
             <figure class="m-0">
               <a href="course-single.php"><img src="images/img_3.jpg" alt="Image" class="img-fluid"></a>
             </figure>
@@ -360,24 +369,8 @@
             </div>
           </div>';
       }
-            
+      $kask3->close();     
       ?>
-
-      <div class="course bg-white h-100 align-self-stretch mr-5 mt-5">
-        <figure class="m-0">
-          <a href="course-single.php"><img src="images/img_3.jpg" alt="Image" class="img-fluid"></a>
-        </figure>
-        <div class="course-inner-text py-4 px-4">
-          <!-- <span class="course-price">$20</span> -->
-          <div class="meta"><span class="icon-clock-o"></span>4 Lessons / 12 week</div>
-          <h3><a href="#">TESTNAME</a></h3>
-          <p>TESTTEACHERNAME</p>
-        </div>
-        <div class="d-flex border-top stats">
-          <div class="py-3 px-4"><span class="icon-users"></span>TESTCOUNT</div>
-          <div class="py-3 px-4 w-20 ml-auto border-left"><button class="btn btn-primary m-1">Subscribe</button></div>
-        </div>
-      </div>
 
 
     
@@ -660,7 +653,9 @@
     </footer>
 
   
-    
+    <?php
+
+    ?>
   </div> <!-- .site-wrap -->
 
   <script src="js/jquery-3.3.1.min.js"></script>
