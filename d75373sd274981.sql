@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.1
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
--- Хост: 127.0.0.1
--- Время создания: Окт 22 2019 г., 11:42
--- Версия сервера: 10.4.8-MariaDB
--- Версия PHP: 7.3.10
+-- Host: 127.0.0.1
+-- Loomise aeg: Okt 22, 2019 kell 01:59 PL
+-- Serveri versioon: 10.1.38-MariaDB
+-- PHP versioon: 7.3.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,13 +19,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- База данных: `d75373sd274981`
+-- Andmebaas: `d75373sd274981`
 --
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `consultation`
+-- Tabeli struktuur tabelile `consultation`
 --
 
 CREATE TABLE `consultation` (
@@ -36,16 +36,18 @@ CREATE TABLE `consultation` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Дамп данных таблицы `consultation`
+-- Andmete tõmmistamine tabelile `consultation`
 --
 
 INSERT INTO `consultation` (`consID`, `consname`, `consdesc`, `teacher`) VALUES
-(1, 'Testing Cons', 'Consultation for Testing topic, provided by Vasiliy Strelcov!', 8);
+(1, 'Testing Cons', 'Consultation for Testing topic, provided by Vasiliy Strelcov!', 8),
+(2, 'Programming', 'Consultations for Programming', 10),
+(3, 'Databases', 'Consultations for Databases', 9);
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `registrations`
+-- Tabeli struktuur tabelile `registrations`
 --
 
 CREATE TABLE `registrations` (
@@ -56,7 +58,7 @@ CREATE TABLE `registrations` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Дамп данных таблицы `registrations`
+-- Andmete tõmmistamine tabelile `registrations`
 --
 
 INSERT INTO `registrations` (`regID`, `consID`, `userID`, `teachID`) VALUES
@@ -65,70 +67,72 @@ INSERT INTO `registrations` (`regID`, `consID`, `userID`, `teachID`) VALUES
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `users`
+-- Tabeli struktuur tabelile `users`
 --
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `username` varchar(50) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `created_at` datetime DEFAULT current_timestamp(),
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
   `name` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Дамп данных таблицы `users`
+-- Andmete tõmmistamine tabelile `users`
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `created_at`, `name`) VALUES
 (1, 'jadaun', '$2y$10$rHL3bapZkJN7P3cYG8EazefKWRKutRS0ON0yqwfxDgKEcJpqwAHfy', '2019-10-22 09:27:06', ''),
 (7, 'Difictly', '$2y$10$Xw36k2c7EGR4r7WWuaJnceEJKqxR/cv.6O3pnbfQaB5Rv5.XfGbXa', '2019-10-22 09:50:38', 'Danil Gritsenko'),
-(8, 'vasya', '$2y$10$D3bkJmcHD0PdAS5m.oXOm.aWdLMGu.l0K0zyJMu9gkO9aQJbPqYvG', '2019-10-22 10:09:53', 'Vasiliy Strelcov');
+(8, 'vasya', '$2y$10$D3bkJmcHD0PdAS5m.oXOm.aWdLMGu.l0K0zyJMu9gkO9aQJbPqYvG', '2019-10-22 10:09:53', 'Vasiliy Strelcov'),
+(9, 'imerkulova', '$2y$10$D52fAjjOLh3zpyb1y8k88O4UAVvD6IVXIB76.mkxHy8S5g7FpoO.S', '2019-10-22 13:06:54', 'Irina Merkulova'),
+(10, 'marina.oleinik', '$2y$10$3AmXcdujJnZ0wPFaHQ1gfuJ/dvz4ULnh0Wd2dCeb59WjwHWezn9Aa', '2019-10-22 13:15:49', 'Marina Oleinik');
 
 --
--- Индексы сохранённых таблиц
+-- Indeksid tõmmistatud tabelitele
 --
 
 --
--- Индексы таблицы `consultation`
+-- Indeksid tabelile `consultation`
 --
 ALTER TABLE `consultation`
   ADD PRIMARY KEY (`consID`);
 
 --
--- Индексы таблицы `registrations`
+-- Indeksid tabelile `registrations`
 --
 ALTER TABLE `registrations`
   ADD PRIMARY KEY (`regID`);
 
 --
--- Индексы таблицы `users`
+-- Indeksid tabelile `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `username` (`username`);
 
 --
--- AUTO_INCREMENT для сохранённых таблиц
+-- AUTO_INCREMENT tõmmistatud tabelitele
 --
 
 --
--- AUTO_INCREMENT для таблицы `consultation`
+-- AUTO_INCREMENT tabelile `consultation`
 --
 ALTER TABLE `consultation`
-  MODIFY `consID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `consID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT для таблицы `registrations`
+-- AUTO_INCREMENT tabelile `registrations`
 --
 ALTER TABLE `registrations`
   MODIFY `regID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT для таблицы `users`
+-- AUTO_INCREMENT tabelile `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
