@@ -154,7 +154,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <li><a href="#home-section" class="nav-link">Home</a></li>
                 <li><a href="consultations.php" class="nav-link">Consultations</a></li>
                 <li><a href="teachers.php" class="nav-link">Teachers</a></li>
-                <li><a href="consRegister.php" class="nav-link">Register on Consultations</a></li>
                 <?php
                
                 
@@ -191,11 +190,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
           <div class="row align-items-center">
             <div class="col-12">
               <div class="row align-items-center">
-                <div class="col-lg-6 mb-4">
-                  <h1  data-aos="fade-up" data-aos-delay="100">About Consultations</h1>
-                  <p class="mb-4" data-aos="fade-up" data-aos-delay="200">Consultations Project is a web project made by TARpv17 group at TTHK, The group consists of following students: Danil Gritsenko, Vladimir Trohhalev, Nikita Tšaika</p>
-                  <!--<p data-aos="fade-up" data-aos-delay="300"><a href="#" class="btn btn-primary py-3 px-5 btn-pill">Admission Now</a></p>-->
-                  <div class="wrapper"  data-aos="fade-up" data-aos-delay="100">
+                <div class="col-lg-4 mb-4">
+                  </div>
+      <div class="wrapper"  data-aos="fade-up" data-aos-delay="200">
         <h1>Login</h1>
         <p>Please fill in your credentials to login.</p>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">

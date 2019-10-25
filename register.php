@@ -1,7 +1,6 @@
 <?php
 // Include config file
 require_once "conf.php";
-
 if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
     header("location: index.php");
     exit;
@@ -65,7 +64,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $confirm_password_err = "Password did not match.";
         }
     }
-
     if(empty(trim($_POST["name"]))){
         $name_err = "Please enter your name.";
     } else{
@@ -155,11 +153,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <link rel="stylesheet" href="css/style.css">
 
     <script>
-
     function Register(){
       window.location.href = "register.php";
     }
-
     </script>
     <title>Sign Up</title>
     
@@ -215,17 +211,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
           <div class="row align-items-center">
             <div class="col-12">
               <div class="row align-items-center">
-                <div class="col-lg-6 mb-4">
-                  <h1  data-aos="fade-up" data-aos-delay="100">About Consultations</h1>
-                  <p class="mb-4"  data-aos="fade-up" data-aos-delay="200">Consultations Project is a web project made by TARpv17 group at TTHK, The group consists of following students: Danil Gritsenko, Vladimir Trohhalev, Nikita Tšaika</p>
-                  <!--<p data-aos="fade-up" data-aos-delay="300"><a href="#" class="btn btn-primary py-3 px-5 btn-pill">Admission Now</a></p>-->
-
+                <div class="col-lg-4 mb-4">
+                 
                 </div>
-    <div class="wrapper">
+    <div class="wrapper" data-aos="fade-up" data-aos-delay="200" >
         <h1>Sign Up</h1>
         <p>Please fill this form to create an account.</p>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-            <div class="form-group <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
+            <div class="form-group  <?php echo (!empty($username_err)) ? 'has-error' : ''; ?>">
                 <label>Username</label>
                 <input type="text" name="username" class="form-control" value="<?php echo $username; ?>">
                 <span class="help-block"><?php echo $username_err; ?></span>
