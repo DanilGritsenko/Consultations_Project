@@ -116,7 +116,7 @@ require_once "conf.php";
   <tbody>
   <?php
 
-      $kask=$yhendus->prepare("SELECT r.regID from registrations intersect
+      $kask=$yhendus->prepare("SELECT regID from registrations intersect
        SELECT consultation.consname WHERE consultation.consname=registrations.consID intersect
         SELECT users.name WHERE registrations.userID=users.id intersect
          SELECT users.name WHERE registrations.teachID=users.id ");

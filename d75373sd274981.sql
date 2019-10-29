@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Loomise aeg: Okt 22, 2019 kell 01:59 PL
+-- Loomise aeg: Okt 29, 2019 kell 01:32 PL
 -- Serveri versioon: 10.1.38-MariaDB
 -- PHP versioon: 7.3.4
 
@@ -75,19 +75,21 @@ CREATE TABLE `users` (
   `username` varchar(50) NOT NULL,
   `password` varchar(255) NOT NULL,
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
-  `name` varchar(50) NOT NULL
+  `name` varchar(50) NOT NULL,
+  `email` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Andmete tõmmistamine tabelile `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `password`, `created_at`, `name`) VALUES
-(1, 'jadaun', '$2y$10$rHL3bapZkJN7P3cYG8EazefKWRKutRS0ON0yqwfxDgKEcJpqwAHfy', '2019-10-22 09:27:06', ''),
-(7, 'Difictly', '$2y$10$Xw36k2c7EGR4r7WWuaJnceEJKqxR/cv.6O3pnbfQaB5Rv5.XfGbXa', '2019-10-22 09:50:38', 'Danil Gritsenko'),
-(8, 'vasya', '$2y$10$D3bkJmcHD0PdAS5m.oXOm.aWdLMGu.l0K0zyJMu9gkO9aQJbPqYvG', '2019-10-22 10:09:53', 'Vasiliy Strelcov'),
-(9, 'imerkulova', '$2y$10$D52fAjjOLh3zpyb1y8k88O4UAVvD6IVXIB76.mkxHy8S5g7FpoO.S', '2019-10-22 13:06:54', 'Irina Merkulova'),
-(10, 'marina.oleinik', '$2y$10$3AmXcdujJnZ0wPFaHQ1gfuJ/dvz4ULnh0Wd2dCeb59WjwHWezn9Aa', '2019-10-22 13:15:49', 'Marina Oleinik');
+INSERT INTO `users` (`id`, `username`, `password`, `created_at`, `name`, `email`) VALUES
+(1, 'jadaun', '$2y$10$rHL3bapZkJN7P3cYG8EazefKWRKutRS0ON0yqwfxDgKEcJpqwAHfy', '2019-10-22 09:27:06', '', ''),
+(7, 'Difictly', '$2y$10$Xw36k2c7EGR4r7WWuaJnceEJKqxR/cv.6O3pnbfQaB5Rv5.XfGbXa', '2019-10-22 09:50:38', 'Danil Gritsenko', 'danil.gritsenko3@gmail.com'),
+(8, 'vasya', '$2y$10$D3bkJmcHD0PdAS5m.oXOm.aWdLMGu.l0K0zyJMu9gkO9aQJbPqYvG', '2019-10-22 10:09:53', 'Vasiliy Strelcov', 'vasily.strelcov@mail.ru'),
+(9, 'imerkulova', '$2y$10$D52fAjjOLh3zpyb1y8k88O4UAVvD6IVXIB76.mkxHy8S5g7FpoO.S', '2019-10-22 13:06:54', 'Irina Merkulova', 'irina.merkulova@tthk.ee'),
+(10, 'marina.oleinik', '$2y$10$3AmXcdujJnZ0wPFaHQ1gfuJ/dvz4ULnh0Wd2dCeb59WjwHWezn9Aa', '2019-10-22 13:15:49', 'Marina Oleinik', 'marina.oleinik@tthk.ee'),
+(11, 'emailtest', '$2y$10$Q/Q0akTwYvbw8.K12Q4yKeQWX.Jk8hNcm0ijaRL2BEUPKVpbBISyi', '2019-10-29 14:22:29', 'Email Tester', 'testingemail@mail.test');
 
 --
 -- Indeksid tõmmistatud tabelitele
@@ -132,7 +134,7 @@ ALTER TABLE `registrations`
 -- AUTO_INCREMENT tabelile `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

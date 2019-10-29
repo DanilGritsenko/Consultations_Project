@@ -266,6 +266,9 @@
       <a href="#" class="list-group-item list-group-item-action">Dmitri Kanarjov - Testing</a>
       <button class="btn btn-primary" type="submit">Add New Teacher</button> -->
 
+        
+            
+
       <div class="site-section courses-entry-wrap"  data-aos="fade-up" data-aos-delay="100">
       <div class="container">
         <div class="row">
@@ -349,7 +352,7 @@
       }
       $kask2->close();
 
-      $kask3=$yhendus->prepare("SELECT consultation.consID, consultation.consname, consultation.consdesc, users.name FROM consultation, users, registrations WHERE consultation.teacher=users.id");
+      $kask3=$yhendus->prepare("SELECT consultation.consID, consultation.consname, consultation.consdesc, users.name FROM consultation, users, registrations WHERE consultation.teacher=users.id AND consultation.teacher=10");
       $kask3->bind_result($id, $name, $description, $teachername);
       $kask3->execute();
       while($kask3->fetch()) {
@@ -374,15 +377,16 @@
             </div>
             <div class="d-flex border-top stats">';
               echo '<div class="py-3 px-4"><span class="icon-users"></span>'.htmlspecialchars($countstudents).'</div>';
+
               if(!(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true)){
-              echo '<div class="py-3 px-4 w-20 ml-auto border-left"><button class="btn btn-primary m-1" style="background-color: gray; border: 0px;" disabled>Subscribe</button></div>';
-              }
-              else{
-                echo '<div class="py-3 px-4 w-20 ml-auto border-left"><button class="btn btn-primary m-1">Subscribe</button></div>';
-              }
-              echo '
-            </div>
-          </div>';
+                echo '<div class="py-3 px-4 w-20 ml-auto border-left"><button class="btn btn-primary m-1" style="background-color: gray; border: 0px;" disabled>Subscribe</button></div>';
+                }
+                else{
+                  echo '<div class="py-3 px-4 w-20 ml-auto border-left"><button class="btn btn-primary m-1">Subscribe</button></div>';
+                }
+                echo '
+              </div>
+            </div>';
       }
       $kask3->close();     
       ?>

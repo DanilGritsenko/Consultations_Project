@@ -109,12 +109,15 @@
                             
                             
                             ?></h4>
+                            <?php
+                            echo "ID: ".htmlspecialchars($_SESSION["id"])."<br/>";
+                            ?>
                             <small><cite title="Estonia">Estonia <i class="glyphicon glyphicon-map-marker">
                             </i></cite></small>
                             <p style="color: rgb(121,113,234)">
-                                <i class="glyphicon glyphicon-envelope"></i>email@example.com
+                                <i class="glyphicon glyphicon-envelope"></i><?php echo htmlspecialchars($_SESSION["email"]); ?>
                                 <br />
-                                <i class="glyphicon glyphicon-globe"></i><a href="http://www.jquery2dotnet.com">www.jquery2dotnet.com</a>
+                                <!--<i class="glyphicon glyphicon-globe"></i><a href="http://www.jquery2dotnet.com">www.jquery2dotnet.com</a> -->
                             <!-- Split button -->
                             <div class="btn-group mb-2">
                                 <button type="button" class="btn btn-primary">

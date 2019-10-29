@@ -35,7 +35,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // Validate credentials
     if(empty($username_err) && empty($password_err)){
         // Prepare a select statement
-        $sql = "SELECT id, username, password, name FROM users WHERE username = ?";
+        $sql = "SELECT id, username, password, name, email FROM users WHERE username = ?";
         
         if($stmt = mysqli_prepare($yhendus, $sql)){
             // Bind variables to the prepared statement as parameters
@@ -52,7 +52,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 // Check if username exists, if yes then verify password
                 if(mysqli_stmt_num_rows($stmt) == 1){                    
                     // Bind result variables
-                    mysqli_stmt_bind_result($stmt, $id, $username, $hashed_password, $name);
+                    mysqli_stmt_bind_result($stmt, $id, $username, $hashed_password, $name, $email);
                     if(mysqli_stmt_fetch($stmt)){
                         if(password_verify($password, $hashed_password)){
                             // Password is correct, so start a new session
@@ -62,7 +62,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             $_SESSION["loggedin"] = true;
                             $_SESSION["id"] = $id;
                             $_SESSION["username"] = $username;
-                            $_SESSION["name"] = $name;                            
+                            $_SESSION["name"] = $name;  
+                            $_SESSION["email"] = $email;                          
                             
                             // Redirect user to welcome page
                             header("location: profile.php");
@@ -190,11 +191,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
           <div class="row align-items-center">
             <div class="col-12">
               <div class="row align-items-center">
-                <div class="col-lg-6 mb-4">
-                  <h1  data-aos="fade-up" data-aos-delay="100">About Consultations</h1>
-                  <p class="mb-4" data-aos="fade-up" data-aos-delay="200">Consultations Project is a web project made by TARpv17 group at TTHK, The group consists of following students: Danil Gritsenko, Vladimir Trohhalev, Nikita Tšaika</p>
-                  <!--<p data-aos="fade-up" data-aos-delay="300"><a href="#" class="btn btn-primary py-3 px-5 btn-pill">Admission Now</a></p>-->
-                  <div class="wrapper"  data-aos="fade-up" data-aos-delay="100">
+                <div class="col-lg-4 mb-4">
+                  </div>
+      <div class="wrapper"  data-aos="fade-up" data-aos-delay="200">
         <h1>Login</h1>
         <p>Please fill in your credentials to login.</p>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
