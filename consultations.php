@@ -26,11 +26,8 @@
     <link rel="stylesheet" href="css/style.css">
 
     <?php
-
     require_once "conf.php";
-
     $counter = 0;
-
     ?>
     
   </head>
@@ -108,9 +105,9 @@
                 </a>
 
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                  <a class="dropdown-item" href="consultationsirina.php">Ирина Меркулова</a>
-                  <a class="dropdown-item" href="consultationsmarina.php">Марина Олейник</a>
-                  <a class="dropdown-item" href="consultationsvasily.php">Василий Стрельцов</a>
+                  <a class="dropdown-item" href="?irina">Ирина Меркулова</a>
+                  <a class="dropdown-item" href="?marina">Марина Олейник</a>
+                  <a class="dropdown-item" href="?vasily">Василий Стрельцов</a>
                 </div>
               </div>
 
@@ -348,7 +345,124 @@
       while($kask2->fetch()){
       }
       $kask2->close();
-
+      if (isSet($_REQUEST["irina"])){
+        $kask3=$yhendus->prepare("SELECT consultation.consID, consultation.consname, consultation.consdesc, users.name FROM consultation, users, registrations WHERE consultation.teacher=users.id AND consultation.teacher=9");
+        $kask3->bind_result($id, $name, $description, $teachername);
+        $kask3->execute();
+        while($kask3->fetch()) {
+            if ($counter >= 3){
+            echo '
+            <div class="course bg-white h-100 align-self-stretch mr-5">';
+            }
+            else{
+              echo '
+            <div class="course bg-white h-100 align-self-stretch mr-5 mt-5">';
+            }
+            echo '
+              <figure class="m-0">
+                <a href="course-single.php"><img src="images/img_3.jpg" alt="Image" class="img-fluid"></a>
+              </figure>
+              <div class="course-inner-text py-4 px-4">
+                <div class="meta"><span class="icon-clock-o"></span>4 Lessons / 12 week</div>';
+  
+                echo '<h3><a href="#">' .htmlspecialchars($name).' - '.htmlspecialchars($teachername).'</a></h3>';
+                echo '<p>'.htmlspecialchars($description).'</p>';
+                echo '
+              </div>
+              <div class="d-flex border-top stats">';
+                echo '<div class="py-3 px-4"><span class="icon-users"></span>'.htmlspecialchars($countstudents).'</div>';
+  
+                if(!(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true)){
+                  echo '<div class="py-3 px-4 w-20 ml-auto border-left"><button class="btn btn-primary m-1" style="background-color: gray; border: 0px;" disabled>Subscribe</button></div>';
+                  }
+                  else{
+                    echo '<div class="py-3 px-4 w-20 ml-auto border-left"><button class="btn btn-primary m-1">Subscribe</button></div>';
+                  }
+                  echo '
+                </div>
+              </div>';
+        }
+        $kask3->close();
+      }
+      else if (isSet($_REQUEST["marina"])){
+            $kask3=$yhendus->prepare("SELECT consultation.consID, consultation.consname, consultation.consdesc, users.name FROM consultation, users, registrations WHERE consultation.teacher=users.id AND consultation.teacher=10");
+            $kask3->bind_result($id, $name, $description, $teachername);
+            $kask3->execute();
+            while($kask3->fetch()) {
+                if ($counter >= 3){
+                echo '
+                <div class="course bg-white h-100 align-self-stretch mr-5">';
+                }
+                else{
+                  echo '
+                <div class="course bg-white h-100 align-self-stretch mr-5 mt-5">';
+                }
+                echo '
+                  <figure class="m-0">
+                    <a href="course-single.php"><img src="images/img_3.jpg" alt="Image" class="img-fluid"></a>
+                  </figure>
+                  <div class="course-inner-text py-4 px-4">
+                    <div class="meta"><span class="icon-clock-o"></span>4 Lessons / 12 week</div>';
+      
+                    echo '<h3><a href="#">' .htmlspecialchars($name).' - '.htmlspecialchars($teachername).'</a></h3>';
+                    echo '<p>'.htmlspecialchars($description).'</p>';
+                    echo '
+                  </div>
+                  <div class="d-flex border-top stats">';
+                    echo '<div class="py-3 px-4"><span class="icon-users"></span>'.htmlspecialchars($countstudents).'</div>';
+      
+                    if(!(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true)){
+                      echo '<div class="py-3 px-4 w-20 ml-auto border-left"><button class="btn btn-primary m-1" style="background-color: gray; border: 0px;" disabled>Subscribe</button></div>';
+                      }
+                      else{
+                        echo '<div class="py-3 px-4 w-20 ml-auto border-left"><button class="btn btn-primary m-1">Subscribe</button></div>';
+                      }
+                      echo '
+                    </div>
+                  </div>';
+            }
+            $kask3->close();
+          }
+      else if (isSet($_REQUEST["vasily"])){
+            $kask3=$yhendus->prepare("SELECT consultation.consID, consultation.consname, consultation.consdesc, users.name FROM consultation, users, registrations WHERE consultation.teacher=users.id AND consultation.teacher=8");
+            $kask3->bind_result($id, $name, $description, $teachername);
+            $kask3->execute();
+            while($kask3->fetch()) {
+                if ($counter >= 3){
+                echo '
+                <div class="course bg-white h-100 align-self-stretch mr-5">';
+                }
+                else{
+                  echo '
+                <div class="course bg-white h-100 align-self-stretch mr-5 mt-5">';
+                }
+                echo '
+                  <figure class="m-0">
+                    <a href="course-single.php"><img src="images/img_3.jpg" alt="Image" class="img-fluid"></a>
+                  </figure>
+                  <div class="course-inner-text py-4 px-4">
+                    <div class="meta"><span class="icon-clock-o"></span>4 Lessons / 12 week</div>';
+      
+                    echo '<h3><a href="#">' .htmlspecialchars($name).' - '.htmlspecialchars($teachername).'</a></h3>';
+                    echo '<p>'.htmlspecialchars($description).'</p>';
+                    echo '
+                  </div>
+                  <div class="d-flex border-top stats">';
+                    echo '<div class="py-3 px-4"><span class="icon-users"></span>'.htmlspecialchars($countstudents).'</div>';
+      
+                    if(!(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true)){
+                      echo '<div class="py-3 px-4 w-20 ml-auto border-left"><button class="btn btn-primary m-1" style="background-color: gray; border: 0px;" disabled>Subscribe</button></div>';
+                      }
+                      else{
+                        echo '<div class="py-3 px-4 w-20 ml-auto border-left"><button class="btn btn-primary m-1">Subscribe</button></div>';
+                      }
+                      echo '
+                    </div>
+                  </div>';
+            }
+            $kask3->close();
+          }
+      else{
       $kask3=$yhendus->prepare("SELECT consultation.consID, consultation.consname, consultation.consdesc, users.name FROM consultation, users, registrations WHERE consultation.teacher=users.id");
       $kask3->bind_result($id, $name, $description, $teachername);
       $kask3->execute();
@@ -367,7 +481,6 @@
             </figure>
             <div class="course-inner-text py-4 px-4">
               <div class="meta"><span class="icon-clock-o"></span>4 Lessons / 12 week</div>';
-
               echo '<h3><a href="#">' .htmlspecialchars($name).' - '.htmlspecialchars($teachername).'</a></h3>';
               echo '<p>'.htmlspecialchars($description).'</p>';
               echo '
@@ -384,6 +497,7 @@
             </div>
           </div>';
       }
+    }
       $kask3->close();     
       ?>
 
@@ -669,7 +783,6 @@
 
   
     <?php
-
     ?>
   </div> <!-- .site-wrap -->
 
