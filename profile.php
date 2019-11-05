@@ -25,7 +25,11 @@
 
     <link rel="stylesheet" href="css/style.css">
 	
-	
+	 <script>
+    function Edit(){
+      window.location.href = "profileedit.php";
+    }
+    </script>
     
   </head>
   <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
@@ -54,7 +58,6 @@
                 <li><a href="index.php" class="nav-link">Home</a></li>
                 <li><a href="consultations.php" class="nav-link">Consultations</a></li>
                 <li><a href="teachers.php" class="nav-link">Teachers</a></li>
-                <li><a href="consRegister.php" class="nav-link">Register on Consultations</a></li>
                 <?php
                 session_start();
                 
@@ -110,15 +113,18 @@
                             
                             
                             ?></h4>
+                            <?php
+                            echo "ID: ".htmlspecialchars($_SESSION["id"])."<br/>";
+                            ?>
                             <small><cite title="Estonia">Estonia <i class="glyphicon glyphicon-map-marker">
                             </i></cite></small>
                             <p style="color: rgb(121,113,234)">
-                                <i class="glyphicon glyphicon-envelope"></i>email@example.com
+                                <i class="glyphicon glyphicon-envelope"></i><?php echo htmlspecialchars($_SESSION["email"]); ?>
                                 <br />
-                                <i class="glyphicon glyphicon-globe"></i><a href="http://www.jquery2dotnet.com">www.jquery2dotnet.com</a>
+                                <!--<i class="glyphicon glyphicon-globe"></i><a href="http://www.jquery2dotnet.com">www.jquery2dotnet.com</a> -->
                             <!-- Split button -->
                             <div class="btn-group mb-2">
-                                <button type="button" class="btn btn-primary">
+                                <button type="button" class="btn btn-primary" onClick="Edit()">
                                     Edit</button>
                                 
                             </div>
@@ -386,21 +392,13 @@
     -->
    
 
-    <footer class="footer-section bg-white">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-4">
-            <h3>About Consultations</h3>
-            <p>Consultations Project is a web project made by TARpv17 group at TTHK, The group consists of following students: Danil Gritsenko, Vladimir Trohhalev, Nikita Tšaika</p>
-          </div>
-
           <div class="col-md-3 ml-auto">
             <h3>Links</h3>
             <ul class="list-unstyled footer-links">
-                <li><a href="index.php" class="nav-link">Home</a></li>
-                <li><a href="consultations.php" class="nav-link">Consultations</a></li>
-                <li><a href="teachers.php" class="nav-link">Teachers</a></li>
-                <li><a href="profile.php" class="nav-link">Profile</a></li>
+                    <li><a href="index.php" class="nav-link">Home</a></li>
+                    <li><a href="consultations.php" class="nav-link">Consultations</a></li>
+                    <li><a href="teachers.php" class="nav-link">Teachers</a></li>
+                    <li><a href="profile.php" class="nav-link">Profile</a></li>
             </ul>
           </div>
 
